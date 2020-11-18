@@ -1,8 +1,8 @@
 "use strict";
 
-const maxParticles = 20000,
-  particleSize = 1,
-  emissionRate = 20,
+const maxParticles = 10000,
+  particleSize = 2,
+  emissionRate = 10,
   objectSize = 4;
 
 
@@ -49,8 +49,11 @@ function Field(point, mass) {
 }
 
 Field.prototype.setMass = function(mass) {
-  this.mass = mass || 100;
+  this.mass = mass;
   this.drawColor = mass < 0 ? "#f00" : "#0f0";
+  if(mass === 0) {
+    this.drawColor = '#fff';
+  }
 }
 
 function Vector(x, y) {
@@ -123,7 +126,7 @@ function plotParticles(boundsX, boundsY) {
 }
 
 function drawParticles() {
-  ctx.fillStyle = 'rgb(0,0,255)';
+  ctx.fillStyle = 'rgb(255,0,255)';
   for (let i = 0; i < particles.length; i++) {
     let position = particles[i].position;
     ctx.fillRect(position.x, position.y, particleSize, particleSize);
@@ -145,11 +148,7 @@ const midY = canvas.height / 2;
 
 const emitters = [new Emitter(new Vector(midX - 150, midY), Vector.fromAngle(0, 2))];
 
-const fields = [];
-
-document.addEventListener('click', (e) => {
-    fields.push(new Field(new Vector(e.clientX, e.clientY), -150))
-})
+let fields = [];
 
 function loop() {
   clear();
@@ -178,3 +177,29 @@ function queue() {
 }
 
 loop();
+
+let mass = 200;
+const mass_indicator = document.querySelector('.mass-value');
+mass_indicator.textContent = mass;
+
+
+document.addEventListener('click', (e) => {
+    if(e.target.className !== 'plus' && e.target.className !== 'minus' && e.target.className !== 'refresh'){
+      fields.push(new Field(new Vector(e.clientX, e.clientY), mass))
+    }
+    if(e.target.className === 'plus') {
+      mass += 100;
+      mass_indicator.textContent = mass;
+    }
+    if(e.target.className === 'minus') {
+      mass -= 100;
+      mass_indicator.textContent = mass;
+    }
+    if(e.target.className === 'refresh'){
+      fields = [];
+      mass = 200;
+      mass_indicator.textContent = mass;
+    }
+})
+
+

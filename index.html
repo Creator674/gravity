@@ -3,11 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>wooooaaaaw</title>
+    <title>gravity</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <canvas></canvas>
+    <div class="control-wrapper">
+       <button class="control-btn">
+            <img src="./assets/minus.svg" alt="minus" class="minus">
+       </button>
+       <button class="control-btn">
+            <img src="./assets/plus.svg" alt="plus" class="plus">
+       </button>
+       <button class="control-btn">
+        <img src="./assets/refresh.svg" alt="resfresh" class="refresh">
+   </button>
+       <div class="mass-wrapper">
+           <p class="mass">Current mass: <span class="mass-value"></span></p>
+       </div>
+    </div>
+    <canvas>
+    </canvas>
     <script src="./main.js"></script>
 </body>
 </html>
